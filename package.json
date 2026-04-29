@@ -1,0 +1,29 @@
+{
+  "name": "pythinker-home",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Pythinker landing site — Vue 3 + Vite + Bun.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "bun@1.1.34",
+  "engines": {
+    "bun": ">=1.1.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "start": "bun run server.ts",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.7",
+    "vue-tsc": "^2.1.10"
+  }
+}

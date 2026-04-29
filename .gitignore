@@ -17,7 +17,16 @@ CLAUDE.local.md
 AGENTS.md
 .claude/
 
-# Build output (none today; reserved for future)
+# Build output
 dist/
 build/
 node_modules/
+*.tsbuildinfo
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+
+# Bun
+bun-debug.log

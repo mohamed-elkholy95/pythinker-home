@@ -1,0 +1,21 @@
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+export default defineConfig({
+  plugins: [vue()],
+  build: {
+    target: "es2022",
+    sourcemap: false,
+    cssMinify: true,
+    reportCompressedSize: false,
+  },
+  server: {
+    host: "0.0.0.0",
+    port: 5173,
+    strictPort: false,
+  },
+  preview: {
+    host: "0.0.0.0",
+    port: 4173,
+  },
+});
