@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const base = import.meta.env.BASE_URL;
+</script>
 
 <template>
   <header class="hero">
@@ -6,7 +8,7 @@
 
     <nav class="nav" aria-label="Primary">
       <a class="nav__brand" href="#top" aria-label="Pythinker home">
-        <img class="nav__icon" src="/brand/icon.svg" alt="" width="28" height="28">
+        <img class="nav__icon" :src="`${base}brand/icon.svg`" alt="" width="28" height="28">
         <span class="nav__wordmark">Pythinker</span>
       </a>
 
@@ -50,8 +52,8 @@
       <div class="hero__art" aria-hidden="true">
         <div class="brand-mark">
           <span class="brand-mark__halo"></span>
-          <object class="brand-mark__img" type="image/svg+xml" data="/brand/pythinker_animated.svg" aria-label="Pythinker mascot — blinking and talking">
-            <img src="/brand/icon.svg" alt="" width="320" height="400">
+          <object class="brand-mark__img" type="image/svg+xml" :data="`${base}brand/pythinker_animated.svg`" aria-label="Pythinker mascot — blinking and talking">
+            <img :src="`${base}brand/icon.svg`" alt="" width="320" height="400">
           </object>
         </div>
       </div>

@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const base = import.meta.env.BASE_URL;
+</script>
 
 <template>
   <section class="section section--arch" aria-labelledby="arch-h">
@@ -13,7 +15,7 @@
       </p>
       <figure class="arch__figure">
         <img
-          src="/brand/arctecture.webp"
+          :src="`${base}brand/arctecture.webp`"
           alt="Pythinker architecture: channels feed an inbound queue into a single agent loop, which calls LLM providers, tools and memory, then dispatches replies back through an outbound queue."
           width="1606"
           height="979"

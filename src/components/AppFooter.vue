@@ -40,6 +40,7 @@ const columns: Column[] = [
 ];
 
 const year = new Date().getFullYear();
+const base = import.meta.env.BASE_URL;
 </script>
 
 <template>
@@ -58,7 +59,7 @@ const year = new Date().getFullYear();
     <div class="footer__strip">
       <div class="container container--strip">
         <span class="footer__brand">
-          <img class="nav__icon" src="/brand/icon.svg" alt="" width="22" height="22">
+          <img class="nav__icon" :src="`${base}brand/icon.svg`" alt="" width="22" height="22">
           Pythinker
         </span>
         <span>© {{ year }} · MIT licensed</span>
