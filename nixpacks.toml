@@ -1,7 +1,12 @@
-providers = ["bun"]
+# Nixpacks build for Dokploy / Railway / Render / Coolify.
+#
+# We install Bun via the Nix package (available in nixpkgs since 23.11) and
+# install/build/start with it. We deliberately do NOT use `providers = ["bun"]`
+# because that field requires a recent Nixpacks (≥ 1.27) and breaks on older
+# hosts (e.g. some Dokploy installs).
 
 [phases.setup]
-nixPkgs = ["bun"]
+nixPkgs = ["bun", "nodejs_20"]
 
 [phases.install]
 cmds = ["bun install --frozen-lockfile"]
@@ -10,7 +15,8 @@ cmds = ["bun install --frozen-lockfile"]
 cmds = ["bun run build"]
 
 [start]
-cmd = "bun run start"
+cmd = "bun run server.ts"
 
 [variables]
 NODE_ENV = "production"
+PORT = "3000"

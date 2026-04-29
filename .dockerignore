@@ -1,0 +1,14 @@
+node_modules
+dist
+.git
+.github
+.gitignore
+.vscode
+.idea
+.DS_Store
+*.log
+*.tsbuildinfo
+README.md
+LICENSE
+.env
+.env.*
