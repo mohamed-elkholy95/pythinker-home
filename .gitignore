@@ -1,0 +1,23 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Logs / temp
+*.log
+.cache/
+.tmp/
+
+# Local-only Claude / agent notes (must never ship publicly)
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+.claude/
+
+# Build output (none today; reserved for future)
+dist/
+build/
+node_modules/
