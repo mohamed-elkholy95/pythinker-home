@@ -45,6 +45,71 @@ const quickstartLines = [
   "pythinker agent",
 ];
 
+interface PyOS {
+  id: string;
+  label: string;
+  lines: string[];
+  note?: string;
+}
+
+const pyOptions: PyOS[] = [
+  {
+    id: "macos",
+    label: "macOS",
+    lines: [
+      "# Recommended — Homebrew (https://brew.sh)",
+      "brew install python@3.13",
+      "python3 --version    # should print 3.11 or newer",
+    ],
+    note: "Or grab the installer from python.org/downloads/macos.",
+  },
+  {
+    id: "linux",
+    label: "Linux",
+    lines: [
+      "# Debian / Ubuntu",
+      "sudo apt update && sudo apt install -y python3.13 python3.13-venv python3-pip",
+      "",
+      "# Fedora / RHEL / Rocky",
+      "sudo dnf install -y python3.13 python3-pip",
+      "",
+      "# Arch",
+      "sudo pacman -S python python-pip",
+      "",
+      "python3 --version    # should print 3.11 or newer",
+    ],
+    note: "If your distro doesn't ship 3.11+, use pyenv or the uv flow below — uv fetches a managed Python automatically.",
+  },
+  {
+    id: "windows",
+    label: "Windows",
+    lines: [
+      "# winget (built into Windows 10/11)",
+      "winget install Python.Python.3.13",
+      "",
+      "# Or download the installer at python.org/downloads/windows",
+      "# At the bottom, tick \"Add python.exe to PATH\" before installing.",
+      "",
+      "python --version    # should print 3.11 or newer",
+    ],
+    note: "If python isn't found, restart your shell so the new PATH takes effect.",
+  },
+];
+
+const activePyOS = ref<PyOS["id"]>("macos");
+const activePy = computed(() => pyOptions.find((p) => p.id === activePyOS.value)!);
+
+function onPyTabKey(e: KeyboardEvent, idx: number) {
+  if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+  e.preventDefault();
+  const dir = e.key === "ArrowRight" ? 1 : -1;
+  const next = pyOptions[(idx + dir + pyOptions.length) % pyOptions.length];
+  activePyOS.value = next.id;
+  queueMicrotask(() => {
+    document.getElementById(`py-${next.id}`)?.focus();
+  });
+}
+
 interface Extra {
   flag: string;
   blurb: string;
@@ -81,6 +146,41 @@ function onTabKey(e: KeyboardEvent, idx: number) {
       <h2 id="install-h" class="section__title">One command. No build pipeline.</h2>
 
       <div class="install">
+        <h3 class="step__title"><span class="step__num">1</span> Install Python 3.11+</h3>
+        <p class="install__caption">
+          Already on Python 3.11 or newer? Skip ahead to step 2. Check with
+          <code>python3 --version</code>.
+        </p>
+
+        <div class="tabs" role="tablist" aria-label="Install Python by OS">
+          <button
+            v-for="(p, i) in pyOptions"
+            :key="p.id"
+            :id="`py-${p.id}`"
+            class="tab"
+            :class="{ 'is-active': activePyOS === p.id }"
+            role="tab"
+            :aria-selected="activePyOS === p.id ? 'true' : 'false'"
+            :aria-controls="`pypanel-${p.id}`"
+            type="button"
+            @click="activePyOS = p.id"
+            @keydown="onPyTabKey($event, i)"
+          >{{ p.label }}</button>
+        </div>
+
+        <div class="tabpanels">
+          <div
+            :id="`pypanel-${activePy.id}`"
+            class="tabpanel is-active"
+            role="tabpanel"
+            :aria-labelledby="`py-${activePy.id}`"
+          >
+            <pre><code><template v-for="(line, idx) in activePy.lines" :key="idx"><span v-if="line.startsWith('#') || line === ''" class="comment">{{ line }}</span><template v-else><span class="prompt">$</span> {{ line }}</template><template v-if="idx < activePy.lines.length - 1">{{ "\n" }}</template></template></code></pre>
+          </div>
+        </div>
+        <p v-if="activePy.note" class="install__caption">{{ activePy.note }}</p>
+
+        <h3 class="step__title"><span class="step__num">2</span> Install Pythinker</h3>
         <div class="terminal terminal--primary">
           <div class="terminal__chrome" aria-hidden="true">
             <span class="dot dot--r"></span>
