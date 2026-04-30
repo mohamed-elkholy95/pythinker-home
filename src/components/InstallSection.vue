@@ -45,6 +45,21 @@ const quickstartLines = [
   "pythinker agent",
 ];
 
+interface Extra {
+  flag: string;
+  blurb: string;
+}
+
+const extras: Extra[] = [
+  { flag: "reports",  blurb: "Markdown → PDF reports" },
+  { flag: "matrix",   blurb: "Matrix (E2E) channel" },
+  { flag: "discord",  blurb: "Discord channel" },
+  { flag: "msteams",  blurb: "Microsoft Teams channel" },
+  { flag: "browser",  blurb: "Headless browser tool (Playwright)" },
+  { flag: "pdf",      blurb: "Read PDF files (PyMuPDF)" },
+  { flag: "api",      blurb: "OpenAI-compatible HTTP server" },
+];
+
 const { copy, isCopied, toastMessage, toastVisible } = useClipboard();
 
 function onTabKey(e: KeyboardEvent, idx: number) {
@@ -124,6 +139,39 @@ function onTabKey(e: KeyboardEvent, idx: number) {
         <div class="terminal terminal--quiet">
           <pre><code><template v-for="(line, idx) in quickstartLines" :key="idx"><span class="prompt">$</span> {{ line }}<template v-if="idx < quickstartLines.length - 1">{{ "\n" }}</template></template></code></pre>
         </div>
+
+        <h3 class="quickstart__title">Optional extras</h3>
+        <p class="install__caption">
+          Pythinker ships small. Pull in only the features you actually use:
+        </p>
+        <ul class="extras" role="list">
+          <li v-for="x in extras" :key="x.flag" class="extras__item">
+            <code>uv tool install 'pythinker-ai[{{ x.flag }}]'</code>
+            <span>{{ x.blurb }}</span>
+          </li>
+        </ul>
+        <p class="install__caption">
+          Combine with commas:
+          <code>uv tool install 'pythinker-ai[reports,discord,browser]'</code>
+        </p>
+
+        <h3 class="quickstart__title">WebUI (development)</h3>
+        <p class="install__caption">
+          The WebUI ships from a source checkout. Enable the WebSocket channel,
+          then start the gateway and dev server:
+        </p>
+        <div class="terminal terminal--quiet">
+          <pre><code><span class="prompt">$</span> pythinker gateway
+<span class="prompt">$</span> cd webui &amp;&amp; bun install &amp;&amp; bun run dev</code></pre>
+        </div>
+        <p class="install__caption">
+          Full steps:
+          <a
+            href="https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/webui/README.md"
+            target="_blank"
+            rel="noopener"
+          >webui/README.md</a>.
+        </p>
       </div>
 
       <div class="toast" :class="{ 'is-visible': toastVisible }" role="status" aria-live="polite">

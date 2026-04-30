@@ -18,7 +18,7 @@ const columns: Column[] = [
       { label: "Memory",        href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/memory.md" },
       { label: "Chat Apps",     href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/chat-apps.md" },
       { label: "Deployment",    href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/deployment.md" },
-      { label: "Security",      href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/security.md" },
+      { label: "Security",      href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/SECURITY.md" },
     ],
   },
   {

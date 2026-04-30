@@ -29,11 +29,69 @@
 
 ## 📦 Install
 
+> **Pythinker requires Python 3.11 or newer.** Check your version with `python3 --version`. If yours is older, follow the per-OS steps below first.
+
+### 1. Install Python 3.11+ (skip if you already have it)
+
+<details>
+<summary><b>macOS</b></summary>
+
+```bash
+# Recommended — Homebrew (https://brew.sh)
+brew install python@3.13
+
+# Or download an installer from python.org:
+#   https://www.python.org/downloads/macos/
+# After install, verify:
+python3 --version    # should print 3.11 or newer
+```
+</details>
+
+<details>
+<summary><b>Linux</b></summary>
+
+```bash
+# Debian / Ubuntu
+sudo apt update && sudo apt install -y python3.13 python3.13-venv python3-pip
+
+# Fedora / RHEL / Rocky
+sudo dnf install -y python3.13 python3-pip
+
+# Arch
+sudo pacman -S python python-pip
+
+# Verify
+python3 --version    # should print 3.11 or newer
+```
+
+If your distro's repos don't ship 3.11+, install [pyenv](https://github.com/pyenv/pyenv#installation) or use the `uv` flow below — `uv` will fetch a managed Python automatically.
+</details>
+
+<details>
+<summary><b>Windows</b></summary>
+
+```powershell
+# Recommended — winget (built into Windows 10/11)
+winget install Python.Python.3.13
+
+# Or download an installer from python.org:
+#   https://www.python.org/downloads/windows/
+# At the bottom of the installer, tick "Add python.exe to PATH" before clicking Install.
+
+# Verify (open a new PowerShell):
+python --version    # should print 3.11 or newer
+```
+
+If `python` isn't found, restart your shell (or sign out / back in) so the new `PATH` takes effect.
+</details>
+
+### 2. Install Pythinker
+
 ```bash
 uv tool install pythinker-ai
 ```
 
-This installs Pythinker into an isolated environment and puts `pythinker` on your `PATH`. [uv](https://docs.astral.sh/uv/) handles Python, PATH, and upgrades for you.
+This installs Pythinker into an isolated environment and puts `pythinker` on your `PATH`. [uv](https://docs.astral.sh/uv/) handles Python, PATH, and upgrades for you — and will fetch a managed Python 3.11+ if your system doesn't have one.
 
 <details>
 <summary>Don't have <code>uv</code>?</summary>
@@ -42,11 +100,11 @@ This installs Pythinker into an isolated environment and puts `pythinker` on you
 # macOS / Linux / WSL:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Windows:
+# Windows (PowerShell):
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-Then re-run `uv tool install pythinker-ai`.
+Restart your shell so the new `PATH` is picked up, then re-run `uv tool install pythinker-ai`.
 </details>
 
 <details>
@@ -66,6 +124,21 @@ cd Pythinker-ai && uv sync --all-extras
 
 If `pythinker` isn't found after install, run `pythinker doctor` (via `python -m pythinker doctor` if needed) for diagnostics.
 </details>
+
+### 3. Optional extras
+
+Pythinker ships small to keep the default install fast. Pull in the features you actually use:
+
+```bash
+uv tool install 'pythinker-ai[reports]'   # Markdown → PDF reports (research/report deliverables)
+uv tool install 'pythinker-ai[matrix]'    # Matrix channel (E2E messaging)
+uv tool install 'pythinker-ai[discord]'   # Discord channel
+uv tool install 'pythinker-ai[msteams]'   # Microsoft Teams channel
+uv tool install 'pythinker-ai[browser]'   # Headless browser tool (Playwright)
+uv tool install 'pythinker-ai[pdf]'       # Read PDF files (PyMuPDF)
+uv tool install 'pythinker-ai[api]'       # OpenAI-compatible HTTP server
+# Combine: uv tool install 'pythinker-ai[reports,discord,browser]'
+```
 
 ## 🚀 Quick Start
 

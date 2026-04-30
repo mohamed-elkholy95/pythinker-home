@@ -554,6 +554,32 @@ code, pre { font-family: var(--font-mono); }
   color: var(--ink-soft);
 }
 
+.extras {
+  list-style: none;
+  margin: 0.5rem 0 0.85rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.extras__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem 0.9rem;
+  padding: 0.55rem 0.8rem;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+.extras__item code {
+  font-size: 0.86rem;
+  white-space: nowrap;
+}
+.extras__item span {
+  color: var(--ink-soft);
+}
+
 .toast {
   position: fixed;
   left: 50%;
