@@ -21,14 +21,14 @@ const base = import.meta.env.BASE_URL;
 
     <div class="hero__inner" id="top">
       <div class="hero__text">
-        <p class="hero__eyebrow"><span class="dot"></span> Open source · MIT licensed · ~55k LOC core</p>
+<p class="hero__eyebrow"><span class="dot"></span> Open source · MIT licensed · ~58k LOC core</p>
         <h1 class="hero__title">
           The ultra-lightweight<br>
           <em>personal-AI-agent</em> framework.
         </h1>
         <p class="hero__sub">
           One Python process listens to Slack, Telegram, Discord, WhatsApp, Matrix,
-          Teams, email, a WebSocket WebUI and an OpenAI-compatible HTTP API —
+          MS Teams, email, a WebSocket WebUI, and an OpenAI-compatible HTTP API —
           all multiplexed by one calm agent loop.
         </p>
         <div class="hero__cta">

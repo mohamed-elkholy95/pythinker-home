@@ -4,6 +4,7 @@ import WhySection from "./components/WhySection.vue";
 import ArchSection from "./components/ArchSection.vue";
 import DesignSection from "./components/DesignSection.vue";
 import InstallSection from "./components/InstallSection.vue";
+import TuiSection from "./components/TuiSection.vue";
 import ChannelsSection from "./components/ChannelsSection.vue";
 import UseCasesSection from "./components/UseCasesSection.vue";
 import RoadmapSection from "./components/RoadmapSection.vue";
@@ -17,6 +18,7 @@ import AppFooter from "./components/AppFooter.vue";
     <ArchSection />
     <DesignSection />
     <InstallSection />
+    <TuiSection />
     <ChannelsSection />
     <UseCasesSection />
     <RoadmapSection />

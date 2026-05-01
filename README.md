@@ -21,11 +21,15 @@
 
 - **Ultra-lightweight** — a small readable core. Stable long-running behavior without orchestration sprawl.
 - **Channel-agnostic** — Slack, Telegram, Discord, WhatsApp, Matrix, MS Teams, email, WebSocket, plus an OpenAI-compatible HTTP API.
+- **Full-screen TUI** — `pythinker tui` (alias `chat`) opens a `prompt_toolkit` chat with live streaming, slash-command pickers (`/model`, `/provider`, `/sessions`, `/theme`, `/help`, `/status`), fuzzy search, themable chrome (default + monochrome), and Ctrl+C cancellation of in-flight turns.
 - **Provider-rich** — 25+ LLM providers (Anthropic, OpenAI, Azure OpenAI, OpenAI Codex, GitHub Copilot, Qwen/DashScope, MiniMax, VolcEngine, Moonshot, DeepSeek, StepFun, and more) behind a single interface.
+- **Provider hot-reload** — edits to model / provider / API key in `~/.pythinker/config.json` land at the next turn boundary. No restart of the SDK or gateway. Same-signature snapshots short-circuit; broken configs are logged and swallowed so an in-flight session can't crash on a typo.
+- **Governed-execution runtime** *(off by default)* — opt-in `RuntimeConfig` wires a `PolicyService` (allow-lists from agent manifests, per-turn budgets, recursion depth), a `ToolEgressGateway` chokepoint, an `AgentRegistry` directory loader, `RequestContext` + `BudgetCounters` plumbing, and a pluggable `TelemetrySink` (loguru / JSONL / composite). When the loader is `None` and policy is off, the runtime is bit-for-bit identical to the legacy path.
 - **Memory that learns** — a two-phase "Dream" process consolidates long-term memory into `MEMORY.md` / `SOUL.md` / `USER.md`, auto-versioned with pure-Python git.
 - **Skills & MCP** — bundled skills (GitHub, cron, weather, tmux, summarize, skill-creator, …) plus first-class [Model Context Protocol](https://modelcontextprotocol.io/) tool access.
+- **Research-grade PDF reports** — opt-in `make_pdf` tool renders structured Markdown to a styled PDF via ReportLab (`pip install 'pythinker-ai[reports]'`).
 - **Sandboxed shell** — every command is wrapped in a bubblewrap sandbox on Linux; file tools enforce workspace boundaries.
-- **Hackable** — the Python package is ~55k LOC with zero monolithic orchestration layer. Read it, fork it, extend it.
+- **Hackable** — the Python package is ~58k LOC with zero monolithic orchestration layer. Read it, fork it, extend it.
 
 ## 📦 Install
 
@@ -140,12 +144,32 @@ uv tool install 'pythinker-ai[api]'       # OpenAI-compatible HTTP server
 # Combine: uv tool install 'pythinker-ai[reports,discord,browser]'
 ```
 
+### 4. Install / pin a specific version
+
+`pythinker-ai` follows [SemVer](https://semver.org/) — major-version
+upgrades **are not** auto-installed. To pin or to opt into a major bump,
+use the explicit pin form for your install method:
+
+| Goal | Command |
+|---|---|
+| Pin exactly `2.0.0` (uv tool — recommended) | `uv tool install --reinstall "pythinker-ai==2.0.0"` |
+| Pin exactly `2.0.0` (pipx) | `pipx install --force "pythinker-ai==2.0.0"` |
+| Pin exactly `2.0.0` (plain pip) | `python -m pip install --force-reinstall "pythinker-ai==2.0.0"` |
+| Stay at the latest stable release | `pythinker upgrade` |
+| From inside pythinker, target a specific version | `pythinker update --target 2.0.0 -y` |
+
+`pip install -U pythinker-ai==2.0.0` works too, but it's semantically
+noisy: the **exact pin** controls the version, not `-U`. `pythinker
+upgrade` will refuse to cross a major version (e.g. `1.x → 2.x`)
+without an explicit `pythinker update --target` opt-in.
+
 ## 🚀 Quick Start
 
 ```bash
 pythinker onboard                           # write a config at ~/.pythinker/config.json
 pythinker provider login openai-codex       # OAuth sign-in (the default provider)
-pythinker agent                             # chat
+pythinker agent                             # interactive CLI chat
+pythinker tui                               # full-screen interactive chat (alias: chat)
 ```
 
 `pythinker onboard` ships a config preconfigured for **OpenAI Codex via ChatGPT OAuth** (no API key needed). To use a different provider/model, edit `~/.pythinker/config.json` — see [Configuration](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/configuration.md) for the full catalog of 25+ providers.
@@ -153,6 +177,48 @@ pythinker agent                             # chat
 - Want different LLM providers, web search, MCP, security settings, or more config options? See [Configuration](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/configuration.md).
 - Want to run Pythinker in chat apps like Telegram, Discord, Slack, WhatsApp, or Matrix? See [Chat Apps](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/chat-apps.md).
 - Want Docker or Linux service deployment? See [Deployment](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/deployment.md).
+- Want governed-execution (policy allow-lists, budgets, telemetry) for hardened deployments? See [Architecture §5.X — `pythinker/runtime/`](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/ARCHITECTURE.md). The layer is opt-in via `runtime.policyEnabled` in `config.json`.
+
+## 🖥️ TUI
+
+`pythinker tui` (alias `pythinker chat`) opens a full-screen `prompt_toolkit` interface for interactive sessions — a step up from `pythinker agent`'s line-by-line REPL.
+
+```bash
+pythinker tui                               # opens with the default theme
+pythinker tui --theme monochrome            # high-contrast / accessibility-friendly
+pythinker tui --workspace ~/work/agent      # override per-session workspace
+pythinker tui --logs ~/.pythinker/tui.log   # mirror loguru output to a file
+```
+
+**Layout.** A persistent chat pane (streamed assistant tokens render live with markdown swap-in once the turn ends), a status bar showing session/model/provider/iteration count, a hint footer for the current keymap, and a multiline editor with slash-command autocomplete.
+
+**Slash commands.** Open in-app overlays for everything you'd normally configure on the CLI:
+
+| Command | Opens |
+|---|---|
+| `/help` | Built-in cheat sheet |
+| `/status` | Live snapshot — session key, model, provider, message count, recent activity |
+| `/sessions` | Fuzzy-pick from past sessions and resume |
+| `/model` | Fuzzy-pick a model from the active provider |
+| `/provider` | Switch LLM provider |
+| `/theme` | Swap between `default` and `monochrome` themes (persisted to `cli.tui.theme`) |
+| `/mcp` | Show MCP status — configured servers, connected servers, registered tools; `/mcp reconnect` retries connections |
+| `/clear` | Clear the chat pane (`/clear --hard` also wipes session memory) |
+| `/exit` | Quit |
+
+Pickers support fuzzy search — start typing to filter, ↑/↓ to navigate, Enter to commit, Esc to dismiss.
+
+**Keymap.**
+
+| Key | Action |
+|---|---|
+| `Enter` | Submit message |
+| `Ctrl+J` | Newline inside the editor |
+| `Ctrl+C` | Cancel the in-flight turn (or quit when idle) |
+| `Esc` | Close the active overlay / picker |
+| `↑` / `↓` | Move cursor in pickers; PageUp / PageDown for 5-step jumps |
+
+**Theming.** Two themes ship by default. Set `cli.tui.theme` in `~/.pythinker/config.json` or pass `--theme`. Both themes provide separate prompt_toolkit chrome styles and Rich content styles so the chat panel and the surrounding UI stay visually consistent.
 
 ## 🧪 WebUI (Development)
 
@@ -240,6 +306,10 @@ PRs welcome! The codebase is intentionally small and readable. 🤗
 ## 🔐 Security
 
 Found a vulnerability? Please **do not open a public issue**. Follow the private disclosure process in [`SECURITY.md`](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/SECURITY.md).
+
+## 🙏 Acknowledgments
+
+Pythinker AI's design and CLI surface were strongly informed by [HKUDS/nanobot](https://github.com/HKUDS/nanobot), an MIT-licensed *ultra-lightweight personal AI agent* by the HKU Data Intelligence Lab. Thanks to the nanobot team for the foundational direction and for releasing the original work under a permissive license. The full upstream license is reproduced in [`THIRD_PARTY_NOTICES.md`](https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/THIRD_PARTY_NOTICES.md).
 
 ## 📄 License
 

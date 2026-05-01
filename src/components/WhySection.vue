@@ -8,7 +8,7 @@ interface WhyCard {
 const cards: WhyCard[] = [
   {
     title: "Ultra-lightweight",
-    body: "~55k LOC, zero monolithic orchestration layer. Stable long-running behavior — no microservices, no broker, no Kubernetes.",
+    body: "~58k LOC, zero monolithic orchestration layer. Stable long-running behavior — no microservices, no broker, no Kubernetes.",
     icon: '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 7l8-4 8 4-8 4-8-4zm0 5l8 4 8-4M4 17l8 4 8-4"/>',
   },
   {
@@ -17,19 +17,34 @@ const cards: WhyCard[] = [
     icon: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
   },
   {
+    title: "Full-screen TUI",
+    body: '<code>pythinker tui</code> opens a <code>prompt_toolkit</code> chat with live streaming, slash-command pickers, fuzzy search, themable chrome, and Ctrl+C cancellation.',
+    icon: '<rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M7 8l3 3-3 3M12 16h5"/>',
+  },
+  {
     title: "Provider-rich",
-    body: "25+ LLM providers behind one interface — Anthropic, OpenAI, Azure OpenAI, OpenAI Codex, GitHub Copilot, DashScope, MiniMax, VolcEngine, Moonshot, DeepSeek, StepFun, and more.",
+    body: "25+ LLM providers behind one interface — Anthropic, OpenAI, Azure OpenAI, OpenAI Codex, GitHub Copilot, Qwen/DashScope, MiniMax, VolcEngine, Moonshot, DeepSeek, StepFun, and more.",
     icon: '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"/>',
   },
   {
+    title: "Provider hot-reload",
+    body: "Edit model, provider, or API key in <code>config.json</code> and changes land at the next turn boundary. No restart needed — broken configs are swallowed so in-flight sessions can't crash.",
+    icon: '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M21 3v5h-5"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M3 21v-5h5"/>',
+  },
+  {
     title: "Memory that learns",
-    body: 'Two-phase “Dream” process consolidates long-term memory into <code>MEMORY.md</code> / <code>SOUL.md</code> / <code>USER.md</code>, auto-versioned with pure-Python git.',
+    body: 'Two-phase "Dream" process consolidates long-term memory into <code>MEMORY.md</code> / <code>SOUL.md</code> / <code>USER.md</code>, auto-versioned with pure-Python git.',
     icon: '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14l-4-3H6a2 2 0 0 1-2-2z"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M8 9h8M8 13h5"/>',
   },
   {
     title: "Skills &amp; MCP",
     body: 'Bundled skills (GitHub, cron, weather, tmux, summarize, skill-creator…) plus first-class <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a> tool access.',
     icon: '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.4 7.2 16.9l.9-5.4L4.2 7.7l5.4-.8z"/>',
+  },
+  {
+    title: "Research-grade PDF reports",
+    body: 'Opt-in <code>make_pdf</code> tool renders structured Markdown to a styled PDF via ReportLab. Install with <code>pip install \'pythinker-ai[reports]\'</code>.',
+    icon: '<path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" points="14 2 14 8 20 8"/><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M8 13h8M8 17h5"/>',
   },
   {
     title: "Sandboxed by default",

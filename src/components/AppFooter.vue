@@ -12,29 +12,33 @@ const columns: Column[] = [
   {
     title: "Product",
     links: [
-      { label: "Docs",          href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/README.md" },
-      { label: "Configuration", href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/configuration.md" },
-      { label: "Architecture",  href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/ARCHITECTURE.md" },
-      { label: "Memory",        href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/memory.md" },
-      { label: "Chat Apps",     href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/chat-apps.md" },
-      { label: "Deployment",    href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/deployment.md" },
-      { label: "Security",      href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/SECURITY.md" },
+      { label: "Docs",             href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/README.md" },
+      { label: "Configuration",    href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/configuration.md" },
+      { label: "Chat Apps",        href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/chat-apps.md" },
+      { label: "OpenAI-Compatible API", href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/openai-api.md" },
+      { label: "Python SDK",       href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/python-sdk.md" },
+      { label: "Deployment",       href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/deployment.md" },
+    ],
+  },
+  {
+    title: "Deep Dives",
+    links: [
+      { label: "Architecture",        href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/ARCHITECTURE.md" },
+      { label: "Memory",              href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/memory.md" },
+      { label: "Multiple Instances",  href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/multiple-instances.md" },
+      { label: "Channel Plugin Guide", href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/docs/channel-plugin-guide.md" },
+      { label: "Security",            href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/SECURITY.md" },
     ],
   },
   {
     title: "Community",
     links: [
-      { label: "GitHub",       href: "https://github.com/mohamed-elkholy95/Pythinker-ai" },
-      { label: "Issues",       href: "https://github.com/mohamed-elkholy95/Pythinker-ai/issues" },
-      { label: "Contributing", href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/CONTRIBUTING.md" },
-    ],
-  },
-  {
-    title: "Project",
-    links: [
+      { label: "GitHub",        href: "https://github.com/mohamed-elkholy95/Pythinker-ai" },
+      { label: "Issues",        href: "https://github.com/mohamed-elkholy95/Pythinker-ai/issues" },
+      { label: "Contributing",  href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/CONTRIBUTING.md" },
       { label: "PyPI",          href: "https://pypi.org/project/pythinker-ai/" },
+      { label: "Release Notes", href: "https://github.com/mohamed-elkholy95/Pythinker-ai/releases" },
       { label: "License",       href: "https://github.com/mohamed-elkholy95/Pythinker-ai/blob/main/LICENSE" },
-      { label: "Release notes", href: "https://github.com/mohamed-elkholy95/Pythinker-ai/releases" },
     ],
   },
 ];

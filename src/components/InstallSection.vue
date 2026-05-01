@@ -29,7 +29,7 @@ const tabs: Tab[] = [
     label: "from source",
     lines: [
       "git clone https://github.com/mohamed-elkholy95/Pythinker-ai",
-      "cd Pythinker-ai && uv sync && uv run pythinker",
+      "cd Pythinker-ai && uv sync --all-extras",
     ],
   },
 ];
@@ -43,6 +43,7 @@ const quickstartLines = [
   "pythinker onboard",
   "pythinker provider login openai-codex",
   "pythinker agent",
+  "pythinker tui",
 ];
 
 interface PyOS {
